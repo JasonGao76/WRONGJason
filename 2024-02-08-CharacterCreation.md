@@ -78,23 +78,12 @@ permalink: /charactercreation
         // Show info and fetch data to show it too
         function showinfo() {
             var selectedclass = document.getElementById("class").value;
-            // var infodiv = document.getElementById("classInfo");
-            // Hide all info divs initially
-            // var allinfodivs = document.querySelectorAll(".class-details");
-            // allinfodivs.forEach(function(div) {
-            //     div.style.display = "none";
-            // });
-            // // Show the selected info div
-            // var selectedinfodiv = document.getElementById(selectedclass + "-details");
-            // if (selectedinfodiv) {
-            //     selectedinfodiv.style.display = "block";
-            // }
             var table = document.getElementById("table");
             if (table) {
                 table.style.display = "block";
             }
             // Fetch stuff
-            const url = "http://{{site.baseurl}}/api/classes/";
+            const url = "http://{{site.baseurl}}/api/classes/"; // revert back to 127.0.0.1:8086 for local
             const options = {
                 method: 'GET', // *GET, POST, PUT, DELETE, etc.
                 mode: 'cors', // no-cors, *cors, same-origin
@@ -149,18 +138,6 @@ permalink: /charactercreation
                         resultContainer.innerHTML = '';
                         // Append the row to table
                         resultContainer.appendChild(tr);
-                        // if (range.innerHTML = true) {
-                        //     range.innerHTML = 1
-                        // }
-                        // else {
-                        //     range.innerHTML = 0
-                        // }
-                        // if (movement.innerHTML = true) {
-                        //     movement.innerHTML = 1
-                        // }
-                        // else {
-                        //     movement.innerHTML = 0
-                        // }
                     }
                 })
                 // Show the description
@@ -178,7 +155,7 @@ permalink: /charactercreation
             });
         };
         function submitinfo() {
-            const url = "http://{{site.baseurl}}/api/currentchar/";
+            const url = "http://{{site.baseurl}}/api/currentchar/"; // revert back to 127.0.0.1:8086 for local
             // get class information from table (which should be updated with the get request)
             var table = document.getElementById("result");
             var row = table.getElementsByTagName("tr");

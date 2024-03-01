@@ -2,7 +2,7 @@
 layout: post
 title: Game Screen
 hide: true
-description: Game screen page for JWT authentication
+description: Game screen page
 permalink: /gamescreen
 ---
 
@@ -34,8 +34,6 @@ permalink: /gamescreen
 <body>
     <img id="map" src="https://i.postimg.cc/x1YqnQJZ/MapPos1.jpg" alt="Game Screen" usemap="#gameMap">
     <div class="black-box">
-        <!-- Ex: You are currently at point 1 on the map. You can move to the points 2, 3. Please input the number of the point you would like to move to. -->
-        <!-- "1", "2, 3" needs to change + "move" should be able to change to "move or attack" + add text saying there's an enemy 1 step away from you -->
         <h2 id="boxtext">You are currently at point <span id="currentposition"></span> on the map. <span id="enemyalert"></span>You can <span id="actions"></span> the points <span id="possibleactionpositions"></span>. Please input the number of the point you would like to act on in the respective action box.</h2>
         <input type="number" min="1" max="9" class="white-input" placeholder="Type here..." id="playerinputmove">
         <button onclick="movement()">Move</button><br>
@@ -49,7 +47,7 @@ permalink: /gamescreen
     async function calculateDamage() {
       var dataHealth = 0;
       // Fetch data to get HP
-      const url = "http://{{site.baseurl}}/api/currentchar/";
+      const url = "http://{{site.baseurl}}/api/currentchar/"; // revert back to 127.0.0.1:8086 for local
       var options = {
           method: 'GET', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
@@ -105,7 +103,6 @@ permalink: /gamescreen
           }
           // valid response will contain JSON data
           response.json().then(data => {
-              // window.location.href='{{site.baseurl}}/gamescreen'
               console.log("Data updated")
           })
       })
@@ -114,6 +111,7 @@ permalink: /gamescreen
       console.log(err)
       });
       
+      alert("You've been hit! Your health is now " + newhealth)
       // Check if health is 0
       if (newhealth == 0) {
         window.location.href = '{{site.baseurl}}/losescreen';
@@ -159,7 +157,7 @@ permalink: /gamescreen
         if (arr[i] == number) {
           document.getElementById("enemyalert").textContent = "The enemy is one step away from you! ";
           document.getElementById("actions").textContent = "move to or attack";
-          return;
+          return true;
         }
         else {
           document.getElementById("enemyalert").textContent = "";
@@ -167,7 +165,7 @@ permalink: /gamescreen
         }
       }
     };
-    checkPosition(position, enemyspot);
+    checkPosition(enemyposition, possibleActionPositions[position]);
 
     // Function to pick a random number from 1 to max, and this is how to decide what the enemy is going to do and where
     function enemychoice(max) {
@@ -200,6 +198,7 @@ permalink: /gamescreen
       var attackposition = enemychoice2(enemyspot);
       if (attackposition == position) {
         calculateDamage();
+        alert("You got hit!");
       }
     };
 
@@ -256,10 +255,12 @@ permalink: /gamescreen
           if (choice == 1) {
             enemymove();
             console.log("Enemy has moved")
+            return;
           }
           else if (choice == 2) {
             enemyattack();
             console.log("Enemy has attacked")
+            return;
           }
         }
       }

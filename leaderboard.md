@@ -29,7 +29,7 @@ Permalink: /leaderboard/
   <button type="submit">Menu</button>
   </form>
 
-<a href="http://{{site.baseurl}}/WRONG/charactercreation"><button class="startbutton" type="button">Start Game</button></a>
+<a href="http://{{site.baseurl}}/WRONG/charactercreation"><button class="startbutton" type="button">Start Game</button></a> <!-- revert back to 127.0.0.1:8086 for local-->
 
 
 <script type="module">
