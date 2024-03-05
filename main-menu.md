@@ -77,8 +77,11 @@ permalink: /main_menu/
         <button class="startbutton" type="button" onclick="()">Start</button>
         <button class="leaderboardButton" type="button" onclick="()">Leaderboard</button>
         <button class="loginButton" type="button" onclick="()">Login</button>
-        <a href="http://{{site.baseurl}}/charactercreation"><button class="startbutton" type="button">Start Game</button></a> <!-- revert back to 127.0.0.1:8086 for local -->
-        <a href="http://1{{site.baseurl}}/leaderboard"><button class="leaderboardButton" type="button">Leaderboard</button></a> <!-- revert back to 127.0.0.1:8086 for local -->
-        <a href="http://{{site.baseurl}}/login"><button class="loginButton" type="button">Login</button></a> <!-- revert back to 127.0.0.1:8086 for local -->
+        <!-- <a href="http://{{site.baseurl}}/charactercreation"><button class="startbutton" type="button">Start Game</button></a> revert back to 127.0.0.1:8086 for local -->
+        <a href="http://127.0.0.1:8086/charactercreation"><button class="startbutton" type="button">Start Game</button></a>
+        <!-- <a href="http://1{{site.baseurl}}/leaderboard"><button class="leaderboardButton" type="button">Leaderboard</button></a> revert back to 127.0.0.1:8086 for local -->
+        <a href="http://127.0.0.1:8086/leaderboard"><button class="leaderboardButton" type="button">Leaderboard</button></a> <!-- revert back to 127.0.0.1:8086 for local -->
+        <!-- <a href="http://{{site.baseurl}}/login"><button class="loginButton" type="button">Login</button></a> revert back to 127.0.0.1:8086 for local -->
+        <a href="http://127.0.0.1:8086/login"><button class="loginButton" type="button">Login</button></a> <!-- revert back to 127.0.0.1:8086 for local -->
     </body>
 </html>

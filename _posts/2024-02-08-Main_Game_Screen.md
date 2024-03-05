@@ -47,7 +47,8 @@ permalink: /gamescreen
     async function calculateDamage() {
       var dataHealth = 0;
       // Fetch data to get HP
-      const url = "http://{{site.baseurl}}/api/currentchar/"; // revert back to 127.0.0.1:8086 for local
+      // const url = "http://{{site.baseurl}}/api/currentchar/"; // revert back to 127.0.0.1:8086 for local
+      const url = "http://127.0.0.1:8086/api/currentchar/";
       var options = {
           method: 'GET', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
