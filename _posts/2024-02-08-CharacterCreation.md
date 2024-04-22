@@ -28,10 +28,9 @@ permalink: /charactercreation
     </style>
 </head>
 <body class="charactercreation">
-    <!-- Failure Screen -->
     <h1 class="bigtitle">Create Your Character</h1>
     <h2 class="middletitle">Make your character here!</h2>
-    <!-- Section 1: Name and class drop down selection -->
+    <!-- Name and class drop down selection -->
     <h2 class="smalltitle">Name:</h2>
     <input type="text" name="name" id="name" required><br>
     <h2 class="smalltitle">Class:</h2>
@@ -43,7 +42,7 @@ permalink: /charactercreation
         <option value="Shield Bearer">Shield Bearer</option>
         <option value="Grand Wizard">Grand Wizard</option>
     </select>
-    <!-- Display data and image -->
+    <!-- Display class stats -->
     <div id="classInfo">
         <h3 id="class-description" class="class-details"></h3>
         <div id="table" class="class-details">
@@ -82,7 +81,7 @@ permalink: /charactercreation
             if (table) {
                 table.style.display = "block";
             }
-            // Fetch stuff
+            // Fetch stuff to get class data
             // const url = "http://{{site.baseurl}}/api/classes/"; // revert back to 127.0.0.1:8086 for local
             const url = "http://127.0.0.1:8086/api/classes/";
             const options = {
@@ -96,9 +95,8 @@ permalink: /charactercreation
             };
             const resultContainer = document.getElementById("result");
             fetch(url, options)
-                // response is a RESTful "promise" on any successful fetch
                 .then(response => {
-                // check for response errors and display
+                // check for response errors
                 if (response.status !== 200) {
                     const errorMsg = 'Database response error: ' + response.status;
                     console.log(errorMsg);
@@ -109,7 +107,7 @@ permalink: /charactercreation
                     resultContainer.appendChild(tr);
                     return;
                 }
-                // valid response will contain JSON data
+                // valid response will contain JSON data, display response in table
                 response.json().then(data => {
                     console.log(data);
                     const just_current_class = data.filter(obj => obj.classname === selectedclass);
@@ -186,11 +184,12 @@ permalink: /charactercreation
             .then(response => {
                 // check for response errors and display
                 if (response.status !== 200) {
-                    // window.location.href = "{{site.baseurl}}/authorizationfail"; *update with link for error
+                    // window.location.href = "{{site.baseurl}}/authorizationfail"; *update with link for error if want
                     return;
                 }
                 // valid response will contain JSON data
                 response.json().then(data => {
+                    // redirect to greenscreen
                     window.location.href='{{site.baseurl}}/gamescreen'
                 })
             })

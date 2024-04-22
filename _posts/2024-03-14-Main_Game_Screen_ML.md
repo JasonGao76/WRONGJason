@@ -41,7 +41,9 @@ permalink: /gamescreenML
 </head>
 
 <body>
+    <!-- Map for game -->
     <img id="map" src="https://i.postimg.cc/x1YqnQJZ/MapPos1.jpg" alt="Game Screen" usemap="#gameMap">
+    <!-- First black box to hold the main game functions (text, move, attack) -->
     <div class="black-box">
       <h2 id="boxtext">You are currently at point <span id="currentposition"></span> on the map. <span id="enemyalert"></span>You can <span id="actions"></span> the points <span id="possibleactionpositions"></span>. Please input the number of the point you would like to act on in the respective action box.</h2>
       <input type="number" min="1" max="9" class="white-input" placeholder="Type here..." id="playerinputmove">
@@ -49,6 +51,7 @@ permalink: /gamescreenML
       <input type="number" min="1" max="9" class="white-input" placeholder="Type here..." id="playerinputattack">
       <button onclick="attack()">Attack</button>
     </div>
+    <!-- Second black box to hold the machine learning feature (text, inputs) -->
     <div class="black-box">
       <h2 id="boxtext">Want to try your luck? Enter four numbers from 1 to 100 below and see if you gain or lose HP!</h2>
       <input type="number" min="1" max="100" class="white-input" placeholder="First number..." id="firstnumber"><br>
@@ -62,7 +65,7 @@ permalink: /gamescreenML
 
 <script>
     // Define function to calculate damage
-    async function calculateDamage() {
+    async function calculateDamage() { // async used because the GET needs to run before the PUT
       var dataHealth = 0;
       // Fetch data to get HP
       // const url = "http://{{site.baseurl}}/api/currentchar/"; // revert back to 127.0.0.1:8086 for local

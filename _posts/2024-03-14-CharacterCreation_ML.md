@@ -28,7 +28,6 @@ permalink: /charactercreationML
     </style>
 </head>
 <body class="charactercreation">
-    <!-- Failure Screen -->
     <h1 class="bigtitle">Create Your Character</h1>
     <h2 class="middletitle">Make your character here!</h2>
     <!-- Section 1: Name and class drop down selection -->
@@ -82,7 +81,7 @@ permalink: /charactercreationML
             if (table) {
                 table.style.display = "block";
             }
-            // Fetch stuff
+            // Fetch stuff to get class data
             // const url = "http://{{site.baseurl}}/api/classes/"; // revert back to 127.0.0.1:8086 for local
             const url = "http://127.0.0.1:8086/api/classes/";
             const options = {
@@ -96,9 +95,8 @@ permalink: /charactercreationML
             };
             const resultContainer = document.getElementById("result");
             fetch(url, options)
-                // response is a RESTful "promise" on any successful fetch
                 .then(response => {
-                // check for response errors and display
+                // check for response errors
                 if (response.status !== 200) {
                     const errorMsg = 'Database response error: ' + response.status;
                     console.log(errorMsg);
@@ -109,7 +107,7 @@ permalink: /charactercreationML
                     resultContainer.appendChild(tr);
                     return;
                 }
-                // valid response will contain JSON data
+                // valid response will contain JSON data, display response in table
                 response.json().then(data => {
                     console.log(data);
                     const just_current_class = data.filter(obj => obj.classname === selectedclass);
@@ -180,17 +178,17 @@ permalink: /charactercreationML
                 cache: 'no-cache', // Set the cache property
                 body: JSON.stringify(body)
             };
-            // fetch the API
+            // fetch the API to update data
             fetch(url, AuthOptions)
-            // response is a RESTful "promise" on any successful fetch
             .then(response => {
                 // check for response errors and display
                 if (response.status !== 200) {
-                    // window.location.href = "{{site.baseurl}}/authorizationfail"; *update with link for error
+                    // window.location.href = "{{site.baseurl}}/authorizationfail"; *add endpoint for error screen if want
                     return;
                 }
                 // valid response will contain JSON data
                 response.json().then(data => {
+                    // redirect to actual game screen
                     window.location.href='{{site.baseurl}}/gamescreenML'
                 })
             })
