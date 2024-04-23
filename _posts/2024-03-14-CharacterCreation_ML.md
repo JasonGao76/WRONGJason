@@ -1,4 +1,5 @@
 ---
+title: Character Creation page
 permalink: /charactercreationML
 ---
 <head>
@@ -109,10 +110,7 @@ permalink: /charactercreationML
                 }
                 // valid response will contain JSON data, display response in table
                 response.json().then(data => {
-                    console.log(data);
                     const just_current_class = data.filter(obj => obj.classname === selectedclass);
-                    console.log(just_current_class);
-                    console.log(selectedclass);
                     for (const row of just_current_class) {
                         // tr and td build out for each row
                         const tr = document.createElement("tr");
@@ -133,9 +131,9 @@ permalink: /charactercreationML
                         tr.appendChild(attack);
                         tr.appendChild(range);
                         tr.appendChild(movement);
-                        // Remove the old rows
+                        // remove the old rows
                         resultContainer.innerHTML = '';
-                        // Append the row to table
+                        // append the row to table
                         resultContainer.appendChild(tr);
                     }
                 })

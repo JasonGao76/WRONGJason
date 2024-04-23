@@ -45,7 +45,7 @@ permalink: /losescreen
         <p>You've lost the game!</p>
     </div>
     <div class="try-again-button">
-        <a href="{{site.baseurl}}/main_menu">
+        <a href="{{site.baseurl}}/charactercreationML">
             <button>Try Again!</button>
         </a>
     </div>

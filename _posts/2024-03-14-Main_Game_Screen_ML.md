@@ -79,23 +79,15 @@ permalink: /gamescreenML
               'Content-Type': 'application/json',
           },
       };
+      // get current health
       const response = await fetch(url, options);
       const data = await response.json();
-      console.log(data);
-
       var dataObject = data[0];
-      console.log(dataObject);
-
       dataHealth = dataObject["health"];
-      console.log("EEE " + dataHealth);
-
+      // get new healh
       var newhealth = dataHealth - 1;
-      console.log(newhealth)
-
       dataObject["health"] = newhealth;
-      console.log(dataObject)
-
-      // Send PUT request
+      // Send PUT request to update with new health
       body = {
           // name: document.getElementById("name").value,
           classname: dataObject["classname"],
@@ -116,11 +108,10 @@ permalink: /gamescreenML
       };
       // fetch the API
       fetch(url, AuthOptions)
-      // response is a RESTful "promise" on any successful fetch
       .then(response => {
           // check for response errors and display
           if (response.status !== 200) {
-              // window.location.href = "{{site.baseurl}}/authorizationfail"; *update with link for error
+              // window.location.href = "{{site.baseurl}}/authorizationfail"; *update with link for error if want
               return;
           }
           // valid response will contain JSON data
@@ -132,9 +123,9 @@ permalink: /gamescreenML
       .catch(err => {
       console.log(err)
       });
-      
+      // alert user about being hit and display new health
       alert("You've been hit! Your health is now " + newhealth)
-      // Check if health is 0
+      // check if health is 0 (lose)
       if (newhealth == 0) {
         window.location.href = '{{site.baseurl}}/losescreen';
       }
@@ -158,6 +149,7 @@ permalink: /gamescreenML
     };
 
     // Define object for possible actions (movement and attack) depending on initial position and update it in text
+    // 1: [2, 3] means that when at position 1, they can move or attack to position 2 or 3
     var possibleActionPositions = {
         1: [2, 3],
         2: [1, 3, 4, 5],
@@ -184,6 +176,7 @@ permalink: /gamescreenML
         else {
           document.getElementById("enemyalert").textContent = "";
           document.getElementById("actions").textContent = "move to";
+          return false;
         }
       }
     };
@@ -206,9 +199,9 @@ permalink: /gamescreenML
 
     // Define function for enemy movement
     function enemymove() {
-      var moveposition = enemychoice2(enemyspot);
+      var moveposition = enemychoice2(enemyspot); // pick spot to move to
       while (moveposition == position) {
-        moveposition = enemychoice2(enemyspot);
+        moveposition = enemychoice2(enemyspot); // ensure bot doesn't move to the same spot user is on
       };
       enemyposition = moveposition;
       enemyspot = possibleActionPositions[enemyposition]
@@ -217,10 +210,9 @@ permalink: /gamescreenML
         
     // Define function for AI attack
     function enemyattack() {
-      var attackposition = enemychoice2(enemyspot);
+      var attackposition = enemychoice2(enemyspot); // pick spot to attack
       if (attackposition == position) {
         calculateDamage();
-        alert("You got hit!");
       }
     };
 
@@ -238,15 +230,21 @@ permalink: /gamescreenML
           document.getElementById("possibleactionpositions").textContent = possibleActionPositions[position];
           var map = document.getElementById("map")
           map.src = mapImages[position]
-          // Enemy act
-          var choice = enemychoice(2)
-          if (choice == 1) {
+          // Enemy action, always move if user isn't one spot away, 1/2 chance to attack and 1/2 chance to move if one spot away
+          if (checkPosition(position, enemyspot)) {
+            var choice = enemychoice(2)
+            if (choice == 1) {
+              enemymove();
+              console.log("Enemy has moved to " + enemyposition)
+            }
+            else if (choice == 2) {
+              enemyattack();
+              console.log("Enemy has attacked")
+            }
+          }
+          else {
             enemymove();
             console.log("Enemy has moved to " + enemyposition)
-          }
-          else if (choice == 2) {
-            enemyattack();
-            console.log("Enemy has attacked")
           }
           // Check positions and give alert if conditions met
           checkPosition(position, enemyspot)
@@ -272,18 +270,24 @@ permalink: /gamescreenML
           else {
             alert("You Missed!")
           }
-          // Enemy act
-          var choice = enemychoice(2)
-          if (choice == 1) {
+          // Enemy action, always move if user isn't one spot away, 1/2 chance to attack and 1/2 chance to move if one spot away
+          if (checkPosition(position, enemyspot)) {
+            var choice = enemychoice(2)
+            if (choice == 1) {
+              enemymove();
+              console.log("Enemy has moved to " + enemyposition)
+            }
+            else if (choice == 2) {
+              enemyattack();
+              console.log("Enemy has attacked")
+            }
+          }
+          else {
             enemymove();
-            console.log("Enemy has moved")
-            return;
+            console.log("Enemy has moved to " + enemyposition)
           }
-          else if (choice == 2) {
-            enemyattack();
-            console.log("Enemy has attacked")
-            return;
-          }
+          checkPosition(position, enemyspot)
+          return;
         }
       }
       alert("Invalid number!")
