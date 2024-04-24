@@ -79,17 +79,19 @@ permalink: /gamescreenML
               'Content-Type': 'application/json',
           },
       };
+
       // get current health
       const response = await fetch(url, options);
       const data = await response.json();
       var dataObject = data[0];
       dataHealth = dataObject["health"];
+
       // get new healh
       var newhealth = dataHealth - 1;
       dataObject["health"] = newhealth;
-      // Send PUT request to update with new health
+
+      // send PUT request to update with new health
       body = {
-          // name: document.getElementById("name").value,
           classname: dataObject["classname"],
           health: newhealth,
           attack: dataObject["attack"],
@@ -106,6 +108,7 @@ permalink: /gamescreenML
           cache: 'no-cache', // Set the cache property
           body: JSON.stringify(body)
       };
+
       // fetch the API
       fetch(url, AuthOptions)
       .then(response => {
@@ -123,8 +126,10 @@ permalink: /gamescreenML
       .catch(err => {
       console.log(err)
       });
+
       // alert user about being hit and display new health
       alert("You've been hit! Your health is now " + newhealth)
+
       // check if health is 0 (lose)
       if (newhealth == 0) {
         window.location.href = '{{site.baseurl}}/losescreen';
@@ -182,7 +187,7 @@ permalink: /gamescreenML
     };
     checkPosition(enemyposition, possibleActionPositions[position]);
 
-    // Function to pick a random number from 1 to max, and this is how to decide what the enemy is going to do and where
+    // Function to pick a random number from 1 to max, and this is how to decide what the bot is going to do
     function enemychoice(max) {
       var randomnumber = Math.random();
       var scalednumber = randomnumber * max;
@@ -208,7 +213,7 @@ permalink: /gamescreenML
       return;
     };
         
-    // Define function for AI attack
+    // Define function for bot attack
     function enemyattack() {
       var attackposition = enemychoice2(enemyspot); // pick spot to attack
       if (attackposition == position) {
@@ -230,22 +235,24 @@ permalink: /gamescreenML
           document.getElementById("possibleactionpositions").textContent = possibleActionPositions[position];
           var map = document.getElementById("map")
           map.src = mapImages[position]
-          // Enemy action, always move if user isn't one spot away, 1/2 chance to attack and 1/2 chance to move if one spot away
+
+          // Bot action, always move if user isn't one spot away, 1/2 chance to attack and 1/2 chance to move if one spot away
           if (checkPosition(position, enemyspot)) {
             var choice = enemychoice(2)
             if (choice == 1) {
               enemymove();
-              console.log("Enemy has moved to " + enemyposition)
+              console.log("Enemy has moved to " + enemyposition) // use when testing
             }
             else if (choice == 2) {
               enemyattack();
-              console.log("Enemy has attacked")
+              console.log("Enemy has attacked") // use when testing
             }
           }
           else {
             enemymove();
-            console.log("Enemy has moved to " + enemyposition)
+            console.log("Enemy has moved to " + enemyposition) // use when testing
           }
+
           // Check positions and give alert if conditions met
           checkPosition(position, enemyspot)
           return;
@@ -270,22 +277,25 @@ permalink: /gamescreenML
           else {
             alert("You Missed!")
           }
-          // Enemy action, always move if user isn't one spot away, 1/2 chance to attack and 1/2 chance to move if one spot away
+
+          // Bot action, always move if user isn't one spot away, 1/2 chance to attack and 1/2 chance to move if one spot away
           if (checkPosition(position, enemyspot)) {
             var choice = enemychoice(2)
             if (choice == 1) {
               enemymove();
-              console.log("Enemy has moved to " + enemyposition)
+              console.log("Enemy has moved to " + enemyposition) // use when testing
             }
             else if (choice == 2) {
               enemyattack();
-              console.log("Enemy has attacked")
+              console.log("Enemy has attacked") // use when testing
             }
           }
           else {
             enemymove();
-            console.log("Enemy has moved to " + enemyposition)
+            console.log("Enemy has moved to " + enemyposition) // use when testing
           }
+
+          // Check positions to update text
           checkPosition(position, enemyspot)
           return;
         }
@@ -307,25 +317,19 @@ permalink: /gamescreenML
           'Content-Type': 'application/json',
         },
       };
+
+      // get current health
       const response = await fetch(url, options);
       const data = await response.json();
-      console.log(data);
-
       var dataObject = data[0];
-      console.log(dataObject);
-
       dataHealth = dataObject["health"];
-      console.log(dataHealth);
 
+      // get new health
       var newhealth = dataHealth + 1;
-      console.log(newhealth)
-
       dataObject["health"] = newhealth;
-      console.log(dataObject)
 
-      // Send PUT request
+      // send PUT request with new health
       body = {
-        // name: document.getElementById("name").value,
         classname: dataObject["classname"],
         health: newhealth,
         attack: dataObject["attack"],
@@ -342,9 +346,9 @@ permalink: /gamescreenML
         cache: 'no-cache', // Set the cache property
         body: JSON.stringify(body)
       };
+
       // fetch the API
       fetch(url, AuthOptions)
-      // response is a RESTful "promise" on any successful fetch
         .then(response => {
           // check for response errors and display
           if (response.status !== 200) {
@@ -365,7 +369,7 @@ permalink: /gamescreenML
     };
 
     // Define function to subtract 1 HP (used in ML incorporation)
-      async function subtractHP() {
+    async function subtractHP() {
       var dataHealth = 0;
       // const url = "http://{{site.baseurl}}/api/currentchar/"; // revert back to 127.0.0.1:8086 for local
       const url = "http://127.0.0.1:8086/api/currentchar/";
@@ -378,25 +382,16 @@ permalink: /gamescreenML
           'Content-Type': 'application/json',
         },
       };
+      // get current health
       const response = await fetch(url, options);
       const data = await response.json();
-      console.log(data);
-
       var dataObject = data[0];
-      console.log(dataObject);
-
       dataHealth = dataObject["health"];
-      console.log(dataHealth);
-
+      // calculate new health
       var newhealth = dataHealth - 1;
-      console.log(newhealth)
-
       dataObject["health"] = newhealth;
-      console.log(dataObject)
-
-      // Send PUT request
+      // send PUT request with new health
       body = {
-        // name: document.getElementById("name").value,
         classname: dataObject["classname"],
         health: newhealth,
         attack: dataObject["attack"],
@@ -415,7 +410,6 @@ permalink: /gamescreenML
       };
       // fetch the API
       fetch(url, AuthOptions)
-      // response is a RESTful "promise" on any successful fetch
         .then(response => {
           // check for response errors and display
           if (response.status !== 200) {
@@ -434,7 +428,7 @@ permalink: /gamescreenML
 
       // relay result
       alert("Your luck unfortunately did not pay off. You lost 1 HP. Your new health is " + newhealth)
-
+      
       // check if health is 0
       if (newhealth == 0) {
         window.location.href = '{{site.baseurl}}/losescreen';
@@ -510,7 +504,7 @@ permalink: /gamescreenML
       siblings = fourthnumber
       parents = fourthnumber
 
-      // code to send POST request
+      // code to send POST request to feed into machine laerning
       var url = "http://127.0.0.1:8086/api/ml/"
       var body = {
         socialclass: pclass,
@@ -536,12 +530,12 @@ permalink: /gamescreenML
             return;
           }
           response.json().then(data => {
-            console.log("Data received")
+            console.log("Data received") // use for testing
             var survivability = data;
             var survivabilitypercent = Math.round(survivability * 100);
             document.getElementById("result").textContent = "You have a " + survivabilitypercent + "% chance to gain HP!";
             
-            // code to process probability
+            // code to process probability, pick random number from 1 to 100 and add 1 HP if percent is greater than the number and subtract 1 HP if otherwise
             var decision = Math.floor(Math.random() * 100);
             if (decision <= survivabilitypercent) {
               addHP();
