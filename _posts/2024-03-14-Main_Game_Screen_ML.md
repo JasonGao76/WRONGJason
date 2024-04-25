@@ -26,7 +26,7 @@ permalink: /gamescreenML
             border: 1px solid #ccc;
             border-radius: 5px;
             width: 30%;
-            box-sizing: border-box; /* Include padding and border in the width calculation */
+            box-sizing: border-box;
         }
         .gray-box {
             background-color: #504E4E;
@@ -41,9 +41,9 @@ permalink: /gamescreenML
 </head>
 
 <body>
-    <!-- Map for game -->
+    <!-- map for game -->
     <img id="map" src="https://i.postimg.cc/x1YqnQJZ/MapPos1.jpg" alt="Game Screen" usemap="#gameMap">
-    <!-- First black box to hold the main game functions (text, move, attack) -->
+    <!-- first black box to hold the main game functions (text, move, attack) -->
     <div class="black-box">
       <h2 id="boxtext">You are currently at point <span id="currentposition"></span> on the map. <span id="enemyalert"></span>You can <span id="actions"></span> the points <span id="possibleactionpositions"></span>. Please input the number of the point you would like to act on in the respective action box.</h2>
       <input type="number" min="1" max="9" class="white-input" placeholder="Type here..." id="playerinputmove">
@@ -51,7 +51,7 @@ permalink: /gamescreenML
       <input type="number" min="1" max="9" class="white-input" placeholder="Type here..." id="playerinputattack">
       <button onclick="attack()">Attack</button>
     </div>
-    <!-- Second black box to hold the machine learning feature (text, inputs) -->
+    <!-- second black box to hold the machine learning feature (text, inputs) -->
     <div class="black-box">
       <h2 id="boxtext">Want to try your luck? Enter four numbers from 1 to 100 below and see if you gain or lose HP!</h2>
       <input type="number" min="1" max="100" class="white-input" placeholder="First number..." id="firstnumber"><br>
@@ -64,10 +64,10 @@ permalink: /gamescreenML
 </body>
 
 <script>
-    // Define function to calculate damage
+    // define function to calculate damage
     async function calculateDamage() { // async used because the GET needs to run before the PUT
       var dataHealth = 0;
-      // Fetch data to get HP
+      // fetch data to get HP
       // const url = "http://{{site.baseurl}}/api/currentchar/"; // revert back to 127.0.0.1:8086 for local
       const url = "http://127.0.0.1:8086/api/currentchar/";
       var options = {
@@ -104,8 +104,8 @@ permalink: /gamescreenML
           headers: {
               'Content-Type': 'application/json',
           },
-          method: 'PUT', // Override the method property
-          cache: 'no-cache', // Set the cache property
+          method: 'PUT', // override the method property
+          cache: 'no-cache', // set the cache property
           body: JSON.stringify(body)
       };
 
@@ -136,11 +136,11 @@ permalink: /gamescreenML
       }
     };
     
-    // Define variable for initial position and update it in text
+    // define variable for initial position and update it in text
     var position = 1;
     document.getElementById("currentposition").textContent = position;
 
-    // Define object for the map images (MapPos1 means at point 1)
+    // define object for the map images (MapPos1 means at point 1)
     var mapImages = {
         1: "https://i.postimg.cc/x1YqnQJZ/MapPos1.jpg",
         2: "https://i.postimg.cc/GmQtpfvm/MapPos2.jpg",
@@ -153,7 +153,7 @@ permalink: /gamescreenML
         9: "https://i.postimg.cc/dtcVjFB0/MapPos9.jpg"
     };
 
-    // Define object for possible actions (movement and attack) depending on initial position and update it in text
+    // define object for possible actions (movement and attack) depending on initial position and update it in text
     // 1: [2, 3] means that when at position 1, they can move or attack to position 2 or 3
     var possibleActionPositions = {
         1: [2, 3],
@@ -168,7 +168,7 @@ permalink: /gamescreenML
     }
     document.getElementById("possibleactionpositions").textContent = possibleActionPositions[position];
 
-    // Define function to check if a number is in one of the possible actions
+    // define function to check if a number is in one of the possible actions
     var enemyposition = 9;
     var enemyspot = possibleActionPositions[enemyposition]
     function checkPosition(number, arr) {
@@ -187,7 +187,7 @@ permalink: /gamescreenML
     };
     checkPosition(enemyposition, possibleActionPositions[position]);
 
-    // Function to pick a random number from 1 to max, and this is how to decide what the bot is going to do
+    // function to pick a random number from 1 to max, and this is how to decide what the bot is going to do
     function enemychoice(max) {
       var randomnumber = Math.random();
       var scalednumber = randomnumber * max;
@@ -195,14 +195,14 @@ permalink: /gamescreenML
       return endnumber;
     };
 
-    // Function to pick a random number from an inputted array
+    // function to pick a random number from an inputted array
     function enemychoice2(array) {
       const randomIndex = Math.floor(Math.random() * array.length);
       var moveposition = array[randomIndex];
       return moveposition;
     };
 
-    // Define function for enemy movement
+    // define function for enemy movement
     function enemymove() {
       var moveposition = enemychoice2(enemyspot); // pick spot to move to
       while (moveposition == position) {
@@ -213,7 +213,7 @@ permalink: /gamescreenML
       return;
     };
         
-    // Define function for bot attack
+    // define function for bot attack
     function enemyattack() {
       var attackposition = enemychoice2(enemyspot); // pick spot to attack
       if (attackposition == position) {
@@ -221,39 +221,39 @@ permalink: /gamescreenML
       }
     };
 
-    // Define function for player movement
+    // define function for player movement
     function movement() {
-      // Set inputValue to the number entered
+      // set inputValue to the number entered
       inputmovement = document.getElementById("playerinputmove");
       inputValue = inputmovement.value;
       possiblemoves = possibleActionPositions[position];
       for (var i = 0; i < possiblemoves.length; i++) {
         if (possiblemoves[i] == inputValue) {
-          // Set number entered as new postion and update text for current position, the possible places to act on, and map
+          // set number entered as new postion and update text for current position, the possible places to act on, and map
           position = inputValue
           document.getElementById("currentposition").textContent = position;
           document.getElementById("possibleactionpositions").textContent = possibleActionPositions[position];
           var map = document.getElementById("map")
           map.src = mapImages[position]
 
-          // Bot action, always move if user isn't one spot away, 1/2 chance to attack and 1/2 chance to move if one spot away
+          // bot action, always move if user isn't one spot away, 1/2 chance to attack and 1/2 chance to move if one spot away
           if (checkPosition(position, enemyspot)) {
             var choice = enemychoice(2)
             if (choice == 1) {
               enemymove();
-              console.log("Enemy has moved to " + enemyposition) // use when testing
+              console.log("Enemy has moved to " + enemyposition)
             }
             else if (choice == 2) {
               enemyattack();
-              console.log("Enemy has attacked") // use when testing
+              console.log("Enemy has attacked")
             }
           }
           else {
             enemymove();
-            console.log("Enemy has moved to " + enemyposition) // use when testing
+            console.log("Enemy has moved to " + enemyposition)
           }
 
-          // Check positions and give alert if conditions met
+          // check positions and give alert if conditions met
           checkPosition(position, enemyspot)
           return;
         }
@@ -261,14 +261,14 @@ permalink: /gamescreenML
       alert("Invalid number!")
     }
 
-    // Define function for player attack
+    // define function for player attack
     function attack() {
       inputattack = document.getElementById("playerinputattack");
       inputattackValue = inputattack.value;
       possiblemoves = possibleActionPositions[position];
       for (var i = 0; i < possiblemoves.length; i++) {
         if (possiblemoves[i] == inputattackValue) {
-          // Check if hit or not
+          // check if hit or not
           if (possiblemoves[i] == enemyposition) {
             alert("You Hit!")
             window.location.href='{{site.baseurl}}/winscreen'
@@ -278,7 +278,7 @@ permalink: /gamescreenML
             alert("You Missed!")
           }
 
-          // Bot action, always move if user isn't one spot away, 1/2 chance to attack and 1/2 chance to move if one spot away
+          // bot action, always move if user isn't one spot away, 1/2 chance to attack and 1/2 chance to move if one spot away
           if (checkPosition(position, enemyspot)) {
             var choice = enemychoice(2)
             if (choice == 1) {
@@ -295,7 +295,7 @@ permalink: /gamescreenML
             console.log("Enemy has moved to " + enemyposition) // use when testing
           }
 
-          // Check positions to update text
+          // check positions to update text
           checkPosition(position, enemyspot)
           return;
         }
@@ -303,7 +303,7 @@ permalink: /gamescreenML
       alert("Invalid number!")
     }
 
-    // Define function to add 1 HP (used in ML incorporation)
+    // define function to add 1 HP (used in ML incorporation)
     async function addHP() {
       var dataHealth = 0;
       // const url = "http://{{site.baseurl}}/api/currentchar/"; // revert back to 127.0.0.1:8086 for local
@@ -342,8 +342,8 @@ permalink: /gamescreenML
         headers: {
           'Content-Type': 'application/json',
         },
-        method: 'PUT', // Override the method property
-        cache: 'no-cache', // Set the cache property
+        method: 'PUT', // override the method property
+        cache: 'no-cache', // set the cache property
         body: JSON.stringify(body)
       };
 
@@ -368,7 +368,7 @@ permalink: /gamescreenML
       alert("Your luck paid off! You gained 1 HP! Your new health is " + newhealth)
     };
 
-    // Define function to subtract 1 HP (used in ML incorporation)
+    // define function to subtract 1 HP (used in ML incorporation)
     async function subtractHP() {
       var dataHealth = 0;
       // const url = "http://{{site.baseurl}}/api/currentchar/"; // revert back to 127.0.0.1:8086 for local
@@ -404,8 +404,8 @@ permalink: /gamescreenML
         headers: {
           'Content-Type': 'application/json',
         },
-        method: 'PUT', // Override the method property
-        cache: 'no-cache', // Set the cache property
+        method: 'PUT', // override the method property
+        cache: 'no-cache', // set the cache property
         body: JSON.stringify(body)
       };
       // fetch the API
@@ -435,9 +435,9 @@ permalink: /gamescreenML
       }
     };
 
-    // Define function to find probability of survival using Titanic model and then send request to update health
+    // define function to find probability of survival using Titanic model and then send request to update health
     function findprobability() {
-      // Get value of inputted numbers and store as firstnumber, secondnumber, thirdnumber, and fourthnumber
+      // get value of inputted numbers and store as firstnumber, secondnumber, thirdnumber, and fourthnumber
       firstnumberinput = document.getElementById("firstnumber");
       secondnumberinput = document.getElementById("secondnumber");
       thirdnumberinput = document.getElementById("thirdnumber");
@@ -447,7 +447,7 @@ permalink: /gamescreenML
       thirdnumber = thirdnumberinput.value;
       fourthnumber = fourthnumberinput.value;
 
-      // Randomize numbers
+      // randomize numbers
       originalfirst = firstnumber;
       originalsecond = secondnumber;
       originalthird = thirdnumber;
@@ -459,7 +459,7 @@ permalink: /gamescreenML
       }
       [firstnumber, secondnumber, thirdnumber, fourthnumber] = inputs;
       
-      // First number used to determine gender and alone
+      // first number used to determine gender and alone
       if (firstnumber % 2 == 0) {
         sex = 'm';
         alone = 'y';
@@ -469,7 +469,7 @@ permalink: /gamescreenML
         alone = 'n';
       }
 
-      // Second number used to determine fare and class
+      // second number used to determine fare and class
       fare = secondnumber * 12
       if (fare >= 500) {
         pclass = 1;
@@ -481,7 +481,7 @@ permalink: /gamescreenML
         pclass = 3;
       }
 
-      // Third number used to determine age and departure place
+      // third number used to determine age and departure place
       age = thirdnumber / 2;
       if (age % 3 == 0) {
         embarked = 'S';
@@ -493,7 +493,7 @@ permalink: /gamescreenML
         embarked = 'Q';
       }
 
-      // Fourth number used to determine siblings and parents
+      // fourth number used to determine siblings and parents
       while (fourthnumber > 5) {
         fourthnumber = Math.round(fourthnumber / 2)
       }

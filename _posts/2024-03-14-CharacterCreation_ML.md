@@ -31,7 +31,7 @@ permalink: /charactercreationML
 <body class="charactercreation">
     <h1 class="bigtitle">Create Your Character</h1>
     <h2 class="middletitle">Make your character here!</h2>
-    <!-- Section 1: Name and class drop down selection -->
+    <!-- name and class drop down selection -->
     <h2 class="smalltitle">Name:</h2>
     <input type="text" name="name" id="name" required><br>
     <h2 class="smalltitle">Class:</h2>
@@ -43,7 +43,7 @@ permalink: /charactercreationML
         <option value="Shield Bearer">Shield Bearer</option>
         <option value="Grand Wizard">Grand Wizard</option>
     </select>
-    <!-- Display data and image -->
+    <!-- display data and image -->
     <div id="classInfo">
         <h3 id="class-description" class="class-details"></h3>
         <div id="table" class="class-details">
@@ -58,12 +58,12 @@ permalink: /charactercreationML
                 </tr>
                 </thead>
                 <tbody id="result">
-                <!-- Generated data goes here -->
+                <!-- generated data goes here -->
                 </tbody>
             </table>
         </div>
     </div>
-    <!-- Submit button -->
+    <!-- submit button -->
     <br>
     <button class="buttons" onclick="submitinfo()">Submit</button>
     <img class="candle" src="https://i.postimg.cc/wj2FYHpM/candle-removebg-preview.png">
@@ -75,14 +75,14 @@ permalink: /charactercreationML
             "Shield Bearer": "You've selected the Shield Bearer class! Sturdy and unwavering, this class features extra health.",
             "Grand Wizard": "You've selected the Grand Wizard class! This class is omnipotent, essentially unable to be beaten. Use this class for testing."
         }
-        // Show info and fetch data to show it too
+        // show info and fetch data to show it too
         function showinfo() {
             var selectedclass = document.getElementById("class").value;
             var table = document.getElementById("table");
             if (table) {
                 table.style.display = "block";
             }
-            // Fetch stuff to get class data
+            // fetch stuff to get class data
             // const url = "http://{{site.baseurl}}/api/classes/"; // revert back to 127.0.0.1:8086 for local
             const url = "http://127.0.0.1:8086/api/classes/";
             const options = {
@@ -137,11 +137,11 @@ permalink: /charactercreationML
                         resultContainer.appendChild(tr);
                     }
                 })
-                // Show the description
+                // show the description
                 const classDetailContainer = document.getElementById("class-description");
                 classDetailContainer.innerHTML = class_descriptions[selectedclass];
             })
-            // Catch fetch errors
+            // catch fetch errors
             .catch(err => {
                 console.error(err);
                 const tr = document.createElement("tr");
@@ -172,8 +172,8 @@ permalink: /charactercreationML
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                method: 'PUT', // Override the method property
-                cache: 'no-cache', // Set the cache property
+                method: 'PUT', // override the method property
+                cache: 'no-cache', // set the cache property
                 body: JSON.stringify(body)
             };
             // fetch the API to update data

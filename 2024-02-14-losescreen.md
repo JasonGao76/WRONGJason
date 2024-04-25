@@ -10,7 +10,7 @@ permalink: /losescreen
     <style>
         body {
             display: flex;
-            flex-direction: column; /* Adjusted to a column layout */
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
@@ -24,7 +24,7 @@ permalink: /losescreen
             color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px; /* Added margin to create spacing */
+            margin-bottom: 20px;
         }
         .try-again-button {
             text-align: center;
@@ -33,7 +33,7 @@ permalink: /losescreen
             background-color: #4caf50;
             color: #fff;
             padding: 10px 20px;
-            border: 2px solid #4caf50; /* Added border property */
+            border: 2px solid #4caf50;
             border-radius: 5px;
             cursor: pointer;
         }
