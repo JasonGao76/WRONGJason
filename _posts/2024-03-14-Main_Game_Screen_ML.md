@@ -11,6 +11,7 @@ permalink: /gamescreenML
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+      /* styling was done with help of ChatGPT, but values and various styles to include was altered */
         .black-box {
             background-color: black;
             color: white;
@@ -64,6 +65,54 @@ permalink: /gamescreenML
 </body>
 
 <script>
+    // define function to check if the class range/movement is true or not. but first set variables to hold whether or not range/movement is true, 0 = false, 1 = true
+    let rangecheck = 0;
+    let movementcheck = 0;
+    async function rangemovementcheck() {
+      // GET request to find if range/movement is true or not
+      const url = "http://127.0.0.1:8086/api/currentchar/";
+      var options = {
+          method: 'GET', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'include', // include, same-origin, omit
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      };
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json()
+        var currentclassdata = data[0];
+        var temprange = currentclassdata.range;
+        var tempmovement = currentclassdata.movement;
+        
+        // convert true/false into 1/0
+        if (temprange == true) {
+          rangecheck = 1;
+        }
+        else {
+          rangecheck = 0;
+        };
+
+        if (tempmovement == true) {
+          movementcheck = 1;
+        }
+        else {
+          movementcheck = 0;
+        }
+        console.log(rangecheck)
+        console.log(movementcheck)
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    // run check for range/movement booleans
+    rangemovementcheck();
+    console.log(rangecheck)
+    console.log(movementcheck)
+
     // define function to calculate damage
     async function calculateDamage() { // async used because the GET needs to run before the PUT
       var dataHealth = 0;

@@ -4,6 +4,7 @@ permalink: /charactercreationML
 ---
 <head>
     <style>
+        /* styling was done with help of ChatGPT, but values and various styles to include was altered */
         .candle {
             max-width: 100%;
         }

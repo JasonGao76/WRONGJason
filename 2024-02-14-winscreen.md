@@ -8,6 +8,7 @@ permalink: /winscreen
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Win Screen</title>
         <style>
+            /* styling was done with help of ChatGPT, but values and various styles to include was altered */
             body {
                 display: flex;
                 align-items: center;
