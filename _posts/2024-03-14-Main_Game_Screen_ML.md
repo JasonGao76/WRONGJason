@@ -209,7 +209,8 @@ permalink: /gamescreenML
         8: [5, 6, 7, 9],
         9: [7, 8],
         10: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    }
+    };
+
     document.getElementById("possibleactionpositions").textContent = possibleActionPositions[position];
 
     // define function to check if a number is in one of the possible actions
