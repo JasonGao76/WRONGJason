@@ -69,6 +69,7 @@ permalink: /charactercreationML
     <button class="buttons" onclick="submitinfo()">Submit</button>
     <img class="candle" src="https://i.postimg.cc/wj2FYHpM/candle-removebg-preview.png">
     <script>
+        // frontend (HTML, Javascript) made on a GitHub repository using a teacher template according to their instructions: https://github.com/nighthawkcoders/Nighthawk-Pages
         const class_descriptions = {
             Knight: "You've selected the Knight class! Strong, loyal, and determined, this class features a balance between offense and defense.",
             Mage: "You've selected the Mage class! Intelligent and calm, this class features the ability to attack any space on the map at the cost of a lower health.",

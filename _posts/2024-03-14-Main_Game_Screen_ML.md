@@ -65,6 +65,7 @@ permalink: /gamescreenML
 </body>
 
 <script>
+    // frontend (HTML, Javascript) made on a GitHub repository using a teacher template according to their instructions: https://github.com/nighthawkcoders/Nighthawk-Pages
     // define function to check if the class range/movement is true or not. but first set variables to hold whether or not range/movement is true, 0 = false, 1 = true
     let rangecheck = 0;
     let movementcheck = 0;
@@ -101,8 +102,6 @@ permalink: /gamescreenML
         else {
           movementcheck = 0;
         }
-        console.log("EEE" + rangecheck)
-        console.log("EEE" + movementcheck)
       } catch (err) {
         console.log(err);
       }
@@ -266,7 +265,7 @@ permalink: /gamescreenML
       }
     };
 
-    // define function to get rangecheck and movementcheck and then run functionality of movement
+    // define function to get rangecheck and movementcheck and then run functionality of movement, use setTimeout to ensure GET finishes
     function move() {
       rangemovementcheck();
       setTimeout(function() {
@@ -304,16 +303,13 @@ permalink: /gamescreenML
             var choice = enemychoice(2)
             if (choice == 1) {
               enemymove();
-              console.log("Enemy has moved to " + enemyposition)
             }
             else if (choice == 2) {
               enemyattack();
-              console.log("Enemy has attacked")
             }
           }
           else {
             enemymove();
-            console.log("Enemy has moved to " + enemyposition)
           }
 
           // check positions and give alert if conditions met
@@ -342,7 +338,7 @@ permalink: /gamescreenML
       alert("Invalid number!")
     }
 
-    // define function to get rangecheck and movementcheck and then run functionality of attack
+    // define function to get rangecheck and movementcheck and then run functionality of attack, use setTimeout to ensure GET finishes
     function strike() {
       rangemovementcheck();
       setTimeout(function() {
@@ -377,16 +373,13 @@ permalink: /gamescreenML
             var choice = enemychoice(2)
             if (choice == 1) {
               enemymove();
-              console.log("Enemy has moved to " + enemyposition) // use when testing
             }
             else if (choice == 2) {
               enemyattack();
-              console.log("Enemy has attacked") // use when testing
             }
           }
           else {
             enemymove();
-            console.log("Enemy has moved to " + enemyposition) // use when testing
           }
 
           // check positions to update text
