@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Game Screen
+title: Game Screen test
 hide: true
-description: Game screen page
-permalink: /gamescreenML
+description: Game screen page test
+permalink: /gamescreenMLtest
 ---
 
 <html lang="en">
@@ -319,22 +319,10 @@ permalink: /gamescreenML
           // check positions and give alert if conditions met
           checkPosition(position, enemyspot)
 
-          // override using movementcheck and rangecheck if applicable
-          if (movementcheck == 1 && rangecheck == 1) {
-            document.getElementById("rangemovementability").textContent = "You're able to move and hit anywhere on the map! ";
-            document.getElementById("actions").textContent = "move to or attack";
-            document.getElementById("possibleactionpositions").textContent = possibleActionPositions[10];
-          }
-          else {
-            if (movementcheck == 1) {
+          // override using movementcheck if applicable
+          if (movementcheck == 1) {
             document.getElementById("rangemovementability").textContent = "You're able to move anywhere on the map! ";
             document.getElementById("possibleactionpositions").textContent = possibleActionPositions[10];
-            }
-            if (rangecheck == 1) {
-              document.getElementById("rangemovementability").textContent = "You're able to hit anywhere on the map! ";
-              document.getElementById("actions").textContent = "move to or attack";
-              document.getElementById("possibleactionpositions").textContent = possibleActionPositions[10];
-            }
           }
           return;
         }
@@ -392,22 +380,11 @@ permalink: /gamescreenML
           // check positions to update text
           checkPosition(position, enemyspot)
 
-          // override using movementcheck and rangecheck if applicable
-          if (movementcheck == 1 && rangecheck == 1) {
-            document.getElementById("rangemovementability").textContent = "You're able to move and hit anywhere on the map! ";
+          // override using rangecheck if applicable
+          if (rangecheck == 1) {
+            document.getElementById("rangemovementability").textContent = "You're able to hit anywhere on the map! ";
             document.getElementById("actions").textContent = "move to or attack";
             document.getElementById("possibleactionpositions").textContent = possibleActionPositions[10];
-          }
-          else {
-            if (movementcheck == 1) {
-            document.getElementById("rangemovementability").textContent = "You're able to move anywhere on the map! ";
-            document.getElementById("possibleactionpositions").textContent = possibleActionPositions[10];
-            }
-            if (rangecheck == 1) {
-              document.getElementById("rangemovementability").textContent = "You're able to hit anywhere on the map! ";
-              document.getElementById("actions").textContent = "move to or attack";
-              document.getElementById("possibleactionpositions").textContent = possibleActionPositions[10];
-            }
           }
           return;
         }
