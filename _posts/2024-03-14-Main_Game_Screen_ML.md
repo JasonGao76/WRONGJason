@@ -329,7 +329,7 @@ permalink: /gamescreenML
             }
             if (rangecheck == 1) {
               document.getElementById("rangemovementability").textContent = "You're able to hit anywhere on the map! ";
-              document.getElementById("actions").textContent = "move to or attack";
+              document.getElementById("actions").textContent = "attack, but not move to,";
               document.getElementById("possibleactionpositions").textContent = possibleActionPositions[10];
             }
           }
