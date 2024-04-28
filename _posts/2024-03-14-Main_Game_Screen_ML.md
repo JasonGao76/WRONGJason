@@ -229,7 +229,7 @@ permalink: /gamescreenML
           return false;
         }
       }
-    };
+    }
     checkPosition(enemyposition, possibleActionPositions[position]);
 
     // function to pick a random number from 1 to max, and this is how to decide what the bot is going to do
@@ -288,7 +288,7 @@ permalink: /gamescreenML
       for (var i = 0; i < possiblemoves.length; i++) {
         if (possiblemoves[i] == inputValue) {
           // set number entered as new postion and update text for current position, the possible places to act on, and map
-          position = inputValue
+          position = inputValue;
           document.getElementById("currentposition").textContent = position;
           if (movementcheck == 1) {
             document.getElementById("possibleactionpositions").textContent = possibleActionPositions[10];
@@ -296,12 +296,12 @@ permalink: /gamescreenML
           else {
             document.getElementById("possibleactionpositions").textContent = possibleActionPositions[position];
           }
-          var map = document.getElementById("map")
-          map.src = mapImages[position]
+          var map = document.getElementById("map");
+          map.src = mapImages[position];
 
           // bot action, always move if user isn't one spot away, 1/2 chance to attack and 1/2 chance to move if one spot away
           if (checkPosition(position, enemyspot)) {
-            var choice = enemychoice(2)
+            var choice = enemychoice(2);
             if (choice == 1) {
               enemymove();
             }
@@ -314,7 +314,7 @@ permalink: /gamescreenML
           }
 
           // check positions and give alert if conditions met
-          checkPosition(position, enemyspot)
+          checkPosition(position, enemyspot);
 
           // override using movementcheck and rangecheck if applicable
           if (movementcheck == 1 && rangecheck == 1) {
@@ -336,7 +336,7 @@ permalink: /gamescreenML
           return;
         }
       }
-      alert("Invalid number!")
+      alert("Invalid number!");
     }
 
     // define function to get rangecheck and movementcheck and then run functionality of attack, use setTimeout to ensure GET finishes
